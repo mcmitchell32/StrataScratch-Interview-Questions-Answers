@@ -1,0 +1,39 @@
+Calculate the running total (i.e., cumulative sum) energy consumption of the Facebook data centers in all 3 continents by the date. 
+Output the date, running total energy consumption, and running total percentage rounded to the nearest whole number.
+
+SQL: 
+-----------------------------------------
+WITH combined_energy AS ( 
+SELECT *
+  FROM fb_eu_energy UNION ALL 
+SELECT * 
+  FROM fb_na_energy UNION ALL 
+SELECT * FROM fb_asia_energy), 
+
+running_total AS (
+SELECT date, 
+       SUM(consumption) AS running_total
+  FROM combined_energy
+GROUP BY date 
+ORDER BY date ASC) 
+
+SELECT date, 
+       SUM(running_total) OVER (ORDER BY date ASC) AS running_total, 
+       ROUND(SUM(running_total) OVER (ORDER BY date ASC) / SUM(running_total) OVER() * 100) AS pct_total_consumption
+  FROM running_total
+  
+PYTHON: 
+-----------------------------------------
+concat = pd.concat([fb_eu_energy, fb_na_energy, fb_asia_energy])
+
+concat['date'] = pd.to_datetime(concat['date']).dt.strftime('%Y-%m-%d')
+
+running_total = concat.groupby('date')['consumption'].sum().to_frame('running_total').reset_index()
+
+running_total['total_consumption'] = running_total['running_total'].cumsum() 
+
+running_total['pct_total_consumption'] = round((running_total['total_consumption'] / running_total['running_total'].sum()) * 100)
+
+running_total.drop('running_total', axis=1, inplace=True)
+
+running_total
