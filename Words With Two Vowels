@@ -20,9 +20,9 @@ def two_vowels(word):
     vowels = [i for i in word if i in {'a', 'e', 'i', 'o', 'u'}]
     return len(vowels) == 2 
 
-w1 = google_word_lists['words1'].apply(lambda x: x.split(',')).explode().rename(columns={'words2':'words'})
+w1 = google_word_lists['words1'].apply(lambda x: x.split(',')).explode()
 
-w2 = google_word_lists['words2'].apply(lambda x: x.split(',')).explode().rename(columns={'words2':'words'})
+w2 = google_word_lists['words2'].apply(lambda x: x.split(',')).explode()
 
 w1 = pd.DataFrame(w1)
 
