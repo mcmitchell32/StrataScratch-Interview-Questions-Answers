@@ -1,7 +1,5 @@
-Find the most common reaction for day 1 by counting the number of occurrences for each reaction. Output the reaction alongside its number of occurrences.
+--Find the most common reaction for day 1 by counting the number of occurrences for each reaction. Output the reaction alongside its number of occurrences.
 
-SQL 
---------------------------------------------------------
 WITH cte AS (
 SELECT reaction, 
        COUNT(*) AS n_reactions, 
@@ -15,24 +13,3 @@ SELECT reaction,
     FROM cte 
 WHERE reaction_rank = 1 
 
-PYTHON 
---------------------------------------------------------
-df = facebook_reactions 
-
-df = df[df['date_day'] == 1]
-
-df = df.groupby(['reaction']).size().to_frame('n_reactions').reset_index() 
-
-df['rank'] = df['n_reactions'].rank(ascending=False, method = 'min')
-
-result = df[df['rank'] == 1][['reaction', 'n_reactions']]
-
-ALTERNATIVE SOLUTION (PYTHON):  
---------------------------------------------------------
-df = facebook_reactions 
-
-df = df[df['date_day'] == 1] 
-
-df = df.groupby('reaction').size().to_frame('n_reactions').reset_index().sort_values('n_reactions', ascending=False) 
-
-result = df[df['n_reactions'] == df['n_reactions'].max()]
