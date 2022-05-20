@@ -12,4 +12,3 @@ SELECT reaction,
        n_reactions
     FROM cte 
 WHERE reaction_rank = 1 
-
