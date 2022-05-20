@@ -1,5 +1,5 @@
-### **Bold** You're given a dataset of searches for properties on Airbnb. For simplicity, let's say that each search result (i.e., each row) represents a unique host. 
-Find the city with the most amenities across all their host's properties. Output the name of the city.
+### **You're given a dataset of searches for properties on Airbnb. For simplicity, let's say that each search result (i.e., each row) represents a unique host. 
+Find the city with the most amenities across all their host's properties. Output the name of the city.**
 
 SQL: 
 -----------------------------------------
