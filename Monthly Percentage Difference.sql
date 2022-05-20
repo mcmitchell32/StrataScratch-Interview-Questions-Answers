@@ -12,5 +12,4 @@ GROUP BY year_month)
 SELECT year_month, 
        ROUND(((total_revenue - previous_revenue) / previous_revenue) * 100, 2) AS pct_change
   FROM cte 
-
-
+  
